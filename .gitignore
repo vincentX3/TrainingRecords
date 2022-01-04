@@ -18,3 +18,16 @@ dist/
 # local temporary files
 /.history/
 /.idea/
+*.db
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/TrainingRecords.iml
+.idea/vcs.xml
+db/TRecords.db
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/TrainingRecords.iml
+.idea/vcs.xml
+db/TRecords.db
