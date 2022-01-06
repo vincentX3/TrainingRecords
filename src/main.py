@@ -8,6 +8,7 @@ if __name__ == "__main__":
     print("Menu:")
     print("Input 1: Initialize db.\t Input 2: Create new record.")
     print("Input 3: Display all records.\t Input 4: Search records by action.")
+    print("Input 5: Get weekly report.")
     print("Input q: quit.")
     command = ""
     while True:
@@ -43,6 +44,19 @@ if __name__ == "__main__":
             # search record table.
             action = command.split()
             trdb.select_records_by_action(action)
+        elif command == '5':
+            if trdb.connection is None:
+                trdb.connect()
+            while True:
+                command = input("> Input 1: report of this week, Input 2: report of last week.")
+                if command == '1':
+                    trdb.weekly_report('current')
+                    break
+                elif command == '2':
+                    trdb.weekly_report('last')
+                    break
+                else:
+                    print(" > command couldn't recognize, please type again.")
         elif command == 'q':
             break
         else:

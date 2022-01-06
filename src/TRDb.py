@@ -87,7 +87,6 @@ class TRDb:
             sql = base_sql + "WHERE RAname=\'{name}\' AND RAlevel=\'{level}\'".format(name=action[0], level=action[1])
         print(read_sql_query(sql, self.connection))
 
-
     def display_all_actions(self):
         sql = "SELECT * FROM actions"
         print(read_sql_query(sql, self.connection))
@@ -96,6 +95,23 @@ class TRDb:
         sql = "SELECT Rdate, RAname, RAlevel, Rnum, Rnote FROM records"
         # result = self.cursor.execute(sql).fetchall()
         # pprint(result)
+        print(read_sql_query(sql, self.connection))
+
+    def weekly_report(self, week):
+        if week == 'current':
+            # this week
+            sql = "select RAname, RAlevel, SUM(Rnum) as num from records where " \
+                  "Rdate >= date('now','start of day', '-7 day','weekday 1') and " \
+                  "Rdate < date('now','start of day', '+0 day','weekday 1')" \
+                  "GROUP BY RAname, RAlevel;"
+        elif week == 'last':
+            # last week
+            sql = "select RAname, RAlevel, SUM(Rnum) as num from records where " \
+                  "Rdate >= date('now','start of day', '-14 day','weekday 1') and " \
+                  "Rdate < date('now','start of day', '-7 day','weekday 1')" \
+                  "GROUP BY RAname, RAlevel;"
+        else:
+            pass
         print(read_sql_query(sql, self.connection))
 
 # trdb = TRDb()
