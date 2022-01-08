@@ -2,13 +2,14 @@ from TRDb import TRDb
 
 if __name__ == "__main__":
     trdb = TRDb()
+    data_path = '../data/'
     print(">>> Training Records <<<")
     print("    Man, work hard every day!")
     print("-----------------------------")
     print("Menu:")
     print("Input 1: Initialize db.\t Input 2: Create new record.")
     print("Input 3: Display all records.\t Input 4: Search records by action.")
-    print("Input 5: Get weekly report.")
+    print("Input 5: Get weekly report.\t Input 6: Export records to excel")
     print("Input q: quit.")
     command = ""
     while True:
@@ -57,6 +58,12 @@ if __name__ == "__main__":
                     break
                 else:
                     print(" > command couldn't recognize, please type again.")
+        elif command == '6':
+            if trdb.connection is None:
+                trdb.connect()
+            file_name = input("> input excel file name: ").strip()
+            trdb.export2excel(data_path+file_name)
+
         elif command == 'q':
             break
         else:

@@ -114,6 +114,18 @@ class TRDb:
             pass
         print(read_sql_query(sql, self.connection))
 
+    def export2excel(self,file_name):
+        try:
+            sql = "select Rdate, Apart, RAname, RAlevel, Rnum, Rnote from records join actions" \
+                  " on records.RAname = actions.Aname and records.RAlevel= actions.Alevel;"
+            # write excel
+            read_sql_query(sql, self.connection).to_excel(file_name+".xlsx")
+        except Exception as e:
+            print(e)
+        print(" Successfully export to ",file_name+".xlsx")
+
+
+
 # trdb = TRDb()
 # trdb.connect()
 # trdb.is_action_exist(['push-up', 'diamond'])
