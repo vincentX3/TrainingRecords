@@ -29,8 +29,14 @@ class DbOps:
             log.logger.error("错误:%s", traceback.format_exc())
 
     @classmethod
+    def init_tables(cls):
+        cls.init_action_table()
+        cls.init_record_table()
+        cls.init_todo_table()
+
+    @classmethod
     def init_todo_table(cls):
-        sql = """CREATE TABLE IF NOT EXISTS todos(\
+        sql = """CREATE TABLE IF NOT EXISTS todos(
                 Tname text,
                 Tlevel text,
                 Tnum double,
@@ -72,10 +78,10 @@ class DbOps:
         :param action: list [Aname, Alevel]
         :return: bool
         '''
-        sql = "SELECT EXISTS(SELECT 1 FROM actions WHERE Aname=\'{name}\' AND Alevel=\'{level}\')"\
+        sql = "SELECT EXISTS(SELECT 1 FROM actions WHERE Aname=\'{name}\' AND Alevel=\'{level}\')" \
             .format(name=action[0], level=action[1])
         # print(sql)
-        result = cls.execute_sql(sql) # result should be [(0,)] or [(1,)]
+        result = cls.execute_sql(sql)  # result should be [(0,)] or [(1,)]
         result = True if result[0][0] == 1 else False
         # print(result)
         return result
@@ -118,7 +124,7 @@ class DbOps:
             print("> successfully create todo-item:", record)
             return True
         else:
-            return False # let GUI raise dialog
+            return False  # let GUI raise dialog
 
     @classmethod
     def fetch_todos(cls):
@@ -126,13 +132,36 @@ class DbOps:
         return todos
 
     @classmethod
+    def fetch_records(cls):
+        sql = "select Rid, RAname, RAlevel, Rnum, Rdate from records;"
+        return cls.execute_sql(sql)
+
+    @classmethod
+    def fetch_week_records(cls, begin, end):
+        sql = "select Rid, RAname, RAlevel, Rnum, Rdate from records where rdate>=\'{begin}\' and rdate<=\'{end}\'". \
+            format(begin=begin, end=end)
+        return cls.execute_sql(sql)
+
+    @classmethod
+    def update_record(cls, rid, name, level, num, rdate):
+        # TODO: check action exists
+        sql = "UPDATE records SET RAname=\'{name}\', RAlevel=\'{name}\', Rnum=\'{num}\', Rdate=\'{rdate}\'" \
+              "WHERE Rid={rid}".format(rid=rid, name=name, num=num, rdate=rdate)
+        return cls.execute_sql(sql)
+
+    @classmethod
     def delete_todo(cls, todo_item):
-        sql = "DELETE FROM todos WHERE Tname=\'{name}\' AND Tlevel=\'{level}\'"\
+        sql = "DELETE FROM todos WHERE Tname=\'{name}\' AND Tlevel=\'{level}\'" \
             .format(name=todo_item[0], level=todo_item[1])
         cls.execute_sql(sql)
 
+    @classmethod
+    def delete_record_by_id(cls, rid):
+        sql = "DELETE FROM records WHERE Rid=\'{rid}\'".format(rid=rid)
+        cls.execute_sql(sql)
 
     # TODO: 增加导入旧db的功能
 
+
 if __name__ == '__main__':
-    print(DbOps.fetch_todos())
+    print(len(DbOps.fetch_records()))

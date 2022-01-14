@@ -34,11 +34,13 @@ class Ui_MainWindow(object):
         self.home = Home()
         self.history = History()
         self.sidebar = Sidebar()
+        self.analysis = Analysis()
         self.splitter.addWidget(self.sidebar)
 
         # switch pages
         self.sidebar.pushButton_train.clicked.connect(lambda: self.switch_page("train"))
         self.sidebar.pushButton_history.clicked.connect(lambda: self.switch_page("history"))
+        self.sidebar.pushButton_analysis.clicked.connect(lambda: self.switch_page("analysis"))
         self.splitter.addWidget(self.home)
 
         self.retranslateUi(MainWindow)
@@ -51,6 +53,9 @@ class Ui_MainWindow(object):
         elif page_name == 'history':
             self.splitter.widget(1).setParent(None)
             self.splitter.insertWidget(1, self.history)
+        elif page_name == 'analysis':
+            self.splitter.widget(1).setParent(None)
+            self.splitter.insertWidget(1, self.analysis)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

@@ -1,5 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
+
+from DbOps import DbOps
 from ui_index import *
 
 
@@ -10,6 +12,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == '__main__':
+    DbOps.init_tables()
     app = QApplication(sys.argv)
     myWin = MyWindow()
     myWin.show()

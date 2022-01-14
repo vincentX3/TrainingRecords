@@ -18,15 +18,19 @@ v0:
 
 v1:
 - [ ] GUI
-  - [ ] home page
-    - [ ] new record
-    - [ ] todo list
+  - [x] home page
+    - [x] new record
+    - [x] todo list
+    - [ ] change date edit
   - [ ] history page
-    - [ ] deletion / update records
+    - [x] deletion / update records
   - [ ] analysis page
     - [ ] data visualization
     - [ ] weekly report
     - [ ] beautify UI
+      - [ ] change layout
+      - [ ] add button
+      - [ ] qss
 - [ ] Excel 数据导入
 
 Future:

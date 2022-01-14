@@ -3,6 +3,7 @@ import datetime
 import logging
 from logging import handlers
 
+
 class Logger(object):
     level_relations = {
         'debug': logging.DEBUG,
@@ -33,6 +34,7 @@ class Logger(object):
         self.logger.addHandler(sh)  # 把对象加到logger里
         self.logger.addHandler(th)
 
+
 def is_date_valid(date_text):
     try:
         datetime.datetime.strptime(date_text, '%Y-%m-%d')
@@ -40,3 +42,23 @@ def is_date_valid(date_text):
         print("> Incorrect data format, should be YYYY-MM-DD")
         return False
     return True
+
+
+def get_week_begin(date_text):
+    '''
+    calculate date of Monday at that week
+    :param date_text: str, 'YYYY-MM-DD'
+    :return:
+    '''
+    day = datetime.datetime.strptime(date_text, '%Y-%m-%d')
+    return datetime.datetime.strftime(day - datetime.timedelta(day.weekday()), "%Y-%m-%d")
+
+
+def get_week_end(date_text):
+    '''
+    calculate date of Sunday at that week
+    :param date_text: str, 'YYYY-MM-DD'
+    :return:
+    '''
+    day = datetime.datetime.strptime(date_text, '%Y-%m-%d')
+    return datetime.datetime.strftime(day + datetime.timedelta(7 - day.weekday() - 1), "%Y-%m-%d")
