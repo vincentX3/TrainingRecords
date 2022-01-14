@@ -18,9 +18,16 @@ v0:
 
 v1:
 - [ ] GUI
-  - [ ] 选择动作输入
+  - [ ] home page
+    - [ ] new record
+    - [ ] todo list
+  - [ ] history page
+    - [ ] deletion / update records
+  - [ ] analysis page
+    - [ ] data visualization
+    - [ ] weekly report
+    - [ ] beautify UI
 - [ ] Excel 数据导入
-- [ ] 数据可视化
 
 Future:
 可能转向web app？微信小程序？

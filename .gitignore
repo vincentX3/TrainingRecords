@@ -31,3 +31,4 @@ db/TRecords.db
 .idea/TrainingRecords.iml
 .idea/vcs.xml
 db/TRecords.db
+/data/

@@ -35,7 +35,7 @@ class TRDb:
                 Rnum double,
                 Rdate date,
                 Rnote text,
-                FOREIGN KEY (RAname) REFERENCES actions (Aname)
+                FOREIGN KEY (RAname, RAlevel) REFERENCES actions (Aname, Alevel)
             )
         """
         self.cursor.execute(action_table)
@@ -101,14 +101,14 @@ class TRDb:
         if week == 'current':
             # this week
             sql = "select RAname, RAlevel, SUM(Rnum) as num from records where " \
-                  "Rdate >= date('now','start of day', '-7 day','weekday 1') and " \
-                  "Rdate < date('now','start of day', '+0 day','weekday 1')" \
+                  "Rdate >= date('now','start of day', '-6 day','weekday 1') and " \
+                  "Rdate < date('now','start of day', '+6 day','weekday 1')" \
                   "GROUP BY RAname, RAlevel;"
         elif week == 'last':
             # last week
             sql = "select RAname, RAlevel, SUM(Rnum) as num from records where " \
-                  "Rdate >= date('now','start of day', '-14 day','weekday 1') and " \
-                  "Rdate < date('now','start of day', '-7 day','weekday 1')" \
+                  "Rdate >= date('now','start of day', '-13 day','weekday 1') and " \
+                  "Rdate < `date('now','start of day', '-6 day','weekday 1')`" \
                   "GROUP BY RAname, RAlevel;"
         else:
             pass
