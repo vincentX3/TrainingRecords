@@ -143,6 +143,33 @@ class DbOps:
         return cls.execute_sql(sql)
 
     @classmethod
+    def fetch_records_by_action(cls, name, level=''):
+        if len(level) == 0:
+            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\'".format(name=name)
+        else:
+            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\' AND RAlevel=\'{level}\'".\
+                format(name=name, level=level)
+        return cls.execute_sql(sql)
+
+    @classmethod
+    def fetch_parts(cls):
+        sql = "SELECT DISTINCT Apart FROM actions;"
+        return cls.execute_sql(sql)
+
+    @classmethod
+    def fetch_names(cls, part=''):
+        if len(part) == 0:
+            sql = "SELECT DISTINCT Aname FROM actions;"
+        else:
+            sql = "SELECT DISTINCT Aname FROM actions WHERE Apart=\'{part}\'".format(part=part)
+        return cls.execute_sql(sql)
+
+    @classmethod
+    def fetch_levels(cls, name):
+        sql = "SELECT DISTINCT Alevel FROM actions WHERE Aname=\'{name}\'".format(name=name)
+        return cls.execute_sql(sql)
+
+    @classmethod
     def update_record(cls, rid, name, level, num, rdate):
         # TODO: check action exists
         sql = "UPDATE records SET RAname=\'{name}\', RAlevel=\'{name}\', Rnum=\'{num}\', Rdate=\'{rdate}\'" \

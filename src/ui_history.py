@@ -143,6 +143,14 @@ class Ui_history(object):
         self.dateEdit.setCalendarPopup(True)
         self.dateEdit.setDisplayFormat("yyyy-MM-dd")
         self.dateEdit.setDate(QDate.currentDate())
+        self.pushButton_search.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../res/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_search.setIcon(icon)
+        part_box = [part[0] for part in DbOps.fetch_parts()]
+        part_box.insert(0,'')
+        self.comboBox_part.addItems(part_box)
+        self.refresh_name_combobox('')
 
         # --- init table ---
         self.init_table()
@@ -150,13 +158,18 @@ class Ui_history(object):
         # --- connection ---
         self.pushButton_Adelete.clicked.connect(lambda: self.delete_record_table("all"))
         self.pushButton_Wdelete.clicked.connect(lambda: self.delete_record_table("week"))
-        # self.pushButton_Sdelete.clicked.connect()
+        self.pushButton_Sdelete.clicked.connect(lambda : self.delete_record_table("search"))
         self.pushButton_Aupdate.clicked.connect(lambda: self.update_record_table("all"))
         self.pushButton_Wupdate.clicked.connect(lambda: self.update_record_table("week"))
-        # self.pushButton_Supdate.clicked.connect()
-        # self.pushButton_search.clicked.connect()
+        self.pushButton_Supdate.clicked.connect(lambda : self.update_record_table("search"))
         self.dateEdit.dateChanged.connect(self.flush_week_table)
         self.tabWidget.tabBarClicked['int'].connect(self.refresh_by_tab_click)
+        # search page
+        self.comboBox_part.activated[str].connect(self.refresh_name_combobox)
+        self.comboBox_part.activated.connect(self.comboBox_level.clear)
+        self.comboBox_action.currentTextChanged[str].connect(self.refresh_level_combobox)
+        self.pushButton_search.clicked.connect(self.flush_search_table)
+
 
     def init_table(self):
         tableWidgets = [self.tableWidget_all, self.tableWidget_week, self.tableWidget_search]
@@ -188,6 +201,19 @@ class Ui_history(object):
             pass
         # TODO: add search flush
 
+    def refresh_name_combobox(self, part):
+        self.comboBox_action.clear()
+        name_box = [name[0] for name in DbOps.fetch_names(part)]
+        self.comboBox_action.addItems(name_box)
+
+    def refresh_level_combobox(self, name):
+        self.comboBox_level.clear()
+        level_box = ['']
+        if len(name)>0:
+            for level in DbOps.fetch_levels(name):
+                level_box.append(level[0])
+        self.comboBox_level.addItems(level_box)
+
     def flush_table(self):
         data = DbOps.fetch_records()
         # 设置表格的行数，和数据的数量相关
@@ -211,6 +237,20 @@ class Ui_history(object):
             for i, word in enumerate(item):
                 self.tableWidget_week.setItem(idx, i, QTableWidgetItem(str(word)))
 
+    def flush_search_table(self):
+        if len(str(self.comboBox_action.currentText()))>0:
+            if len(self.comboBox_level.currentText())>0:
+                data = DbOps.fetch_records_by_action(str(self.comboBox_action.currentText()), str(self.comboBox_level.currentText()))
+            else:
+                data = DbOps.fetch_records_by_action(str(self.comboBox_action.currentText()))
+
+        self.tableWidget_search.setRowCount(len(data))
+
+        # 设置表格的数据
+        for idx, item in enumerate(data):
+            for i, word in enumerate(item):
+                self.tableWidget_search.setItem(idx, i, QTableWidgetItem(str(word)))
+
     def update_record_table(self, table_name):
         if table_name == 'all':
             tableWidget = self.tableWidget_all
@@ -233,8 +273,7 @@ class Ui_history(object):
         elif table_name == 'week':
             self.flush_week_table()
         elif table_name == 'search':
-            # TODO flush search table
-            pass
+            self.flush_search_table()
 
     def delete_record_table(self, table_name):
         if table_name == 'all':
@@ -255,8 +294,7 @@ class Ui_history(object):
                 elif table_name == 'week':
                     self.flush_week_table()
                 elif table_name == 'search':
-                    # TODO flush search table
-                    pass
+                    self.flush_search_table()
 
     def update_dialog(self, rid, name, level, num, rdate):
         dialog = QDialog(self)

@@ -22,15 +22,15 @@ v1:
     - [x] new record
     - [x] todo list
     - [ ] change date edit
-  - [ ] history page
+  - [x] history page
     - [x] deletion / update records
   - [ ] analysis page
     - [ ] data visualization
     - [ ] weekly report
-    - [ ] beautify UI
-      - [ ] change layout
-      - [ ] add button
-      - [ ] qss
+  - [ ] beautify UI
+    - [ ] change layout
+    - [ ] add button
+    - [ ] qss
 - [ ] Excel 数据导入
 
 Future:
