@@ -7,13 +7,14 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from ui_settings import *
 
 class Ui_analysis(object):
     def setupUi(self, analysis):
         analysis.setObjectName("analysis")
-        analysis.resize(1106, 756)
+        analysis.resize(PAGE_WIDTH, HEIGHT)
         self.label = QtWidgets.QLabel(analysis)
-        self.label.setGeometry(QtCore.QRect(480, 380, 108, 24))
+        # self.label.setGeometry(QtCore.QRect(480, 380, 108, 24))
         self.label.setObjectName("label")
 
         self.retranslateUi(analysis)

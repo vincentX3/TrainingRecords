@@ -21,17 +21,18 @@ v1:
   - [x] home page
     - [x] new record
     - [x] todo list
-    - [ ] change date edit
   - [x] history page
     - [x] deletion / update records
-  - [ ] analysis page
-    - [ ] data visualization
-    - [ ] weekly report
   - [ ] beautify UI
-    - [ ] change layout
-    - [ ] add button
+    - [x] change layout
+    - [x] add icon
     - [ ] qss
+
+v2:
 - [ ] Excel 数据导入
+- [ ] analysis page
+  - [ ] data visualization
+  - [ ] weekly report
 
 Future:
 可能转向web app？微信小程序？

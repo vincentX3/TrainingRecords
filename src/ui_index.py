@@ -8,22 +8,25 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ui_pages import *
+from ui_settings import *
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1654, 1141)
+        MainWindow.resize(WIDTH, HEIGHT)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
 
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
+        # self.splitter.setSizes((1, 4))
         # self.splitter.setGeometry(QtCore.QRect(30, 50, 0, 0))
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
 
+        self.horizontalLayout.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -33,8 +36,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.splitter)
         self.home = Home()
         self.history = History()
-        self.sidebar = Sidebar()
         self.analysis = Analysis()
+        self.sidebar = Sidebar()
         self.splitter.addWidget(self.sidebar)
 
         # switch pages
@@ -59,4 +62,4 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Keep Fit!"))

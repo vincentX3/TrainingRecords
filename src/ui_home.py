@@ -8,46 +8,50 @@
 import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QPoint, QDate, Qt
 from PyQt5.QtWidgets import QCompleter, QMessageBox
 
 from DbOps import DbOps
 from utils import is_date_valid
 from ui_custom import TodoQListWidgetItem
-
+from ui_settings import *
 
 class Ui_home(object):
     def setupUi(self, home):
         home.setObjectName("home")
-        home.resize(1017, 840)
-        self.verticalLayoutWidget = QtWidgets.QWidget(home)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(70, 10, 908, 791))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        home.resize(PAGE_WIDTH, HEIGHT)
+        self.verticalLayout = QtWidgets.QVBoxLayout(home)
+        # self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.lineEdit_Aname = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+
+        self.dateEdit = QtWidgets.QDateEdit(home)
+        self.dateEdit.setObjectName("dateEdit")
+        self.horizontalLayout.addWidget(self.dateEdit)
+
+        self.lineEdit_Aname = QtWidgets.QLineEdit(home)
         self.lineEdit_Aname.setObjectName("lineEdit_Aname")
         self.horizontalLayout.addWidget(self.lineEdit_Aname)
-        self.lineEdit_Alevel = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.lineEdit_Alevel = QtWidgets.QLineEdit(home)
         self.lineEdit_Alevel.setObjectName("lineEdit_Alevel")
         self.horizontalLayout.addWidget(self.lineEdit_Alevel)
-        self.lineEdit_num = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.lineEdit_num = QtWidgets.QLineEdit(home)
         self.lineEdit_num.setObjectName("lineEdit_num")
         self.horizontalLayout.addWidget(self.lineEdit_num)
-        self.lineEdit_date = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.lineEdit_date.setObjectName("lineEdit_date")
-        self.horizontalLayout.addWidget(self.lineEdit_date)
-        self.pushButton_complete = QtWidgets.QPushButton(self.verticalLayoutWidget)
+
+        # self.lineEdit_date = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        # self.lineEdit_date.setObjectName("lineEdit_date")
+        # self.horizontalLayout.addWidget(self.lineEdit_date)
+
+        self.pushButton_complete = QtWidgets.QPushButton(home)
         self.pushButton_complete.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../res/completed.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_complete.setIcon(icon)
         self.pushButton_complete.setObjectName("pushButton_complete")
         self.horizontalLayout.addWidget(self.pushButton_complete)
-        self.pushButton_todo = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_todo = QtWidgets.QPushButton(home)
         self.pushButton_todo.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("../res/todo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -55,15 +59,16 @@ class Ui_home(object):
         self.pushButton_todo.setObjectName("pushButton_todo")
         self.horizontalLayout.addWidget(self.pushButton_todo)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.listWidget = QtWidgets.QListWidget(self.verticalLayoutWidget)
+        self.listWidget = QtWidgets.QListWidget(home)
         self.listWidget.setObjectName("listWidget")
+        self.listWidget.sizeHint()
         self.verticalLayout.addWidget(self.listWidget)
 
         self.retranslateUi(home)
         QtCore.QMetaObject.connectSlotsByName(home)
 
         # ----- customization ----
-        self.lineEdit_date.setText(str(datetime.date.today()))
+        # self.lineEdit_date.setText(str(datetime.date.today()))
         # auto-complete
         sql = "select distinct AName from actions;"
         data = DbOps.execute_sql(sql)
@@ -75,6 +80,11 @@ class Ui_home(object):
         level_list = [name[0] for name in data]
         level_completer = QCompleter(level_list, self)
         self.lineEdit_Alevel.setCompleter(level_completer)
+
+        # dateEdit
+        self.dateEdit.setCalendarPopup(True)
+        self.dateEdit.setDisplayFormat("yyyy-MM-dd")
+        self.dateEdit.setDate(QDate.currentDate())
 
         # Load QlistWidgetItem from DB
         for todo_item in DbOps.fetch_todos():
@@ -98,7 +108,8 @@ class Ui_home(object):
         if len(self.lineEdit_Aname.text()) == 0 or len(self.lineEdit_Alevel.text()) == 0 \
                 or len(self.lineEdit_num.text()) == 0:
             flag = False
-        str_date = self.lineEdit_date.text()
+        # str_date = self.lineEdit_date.text()
+        str_date = self.dateEdit.date().toString(Qt.ISODate)
         if not is_date_valid(str_date):
             flag = False
         return flag
@@ -110,7 +121,8 @@ class Ui_home(object):
             record.append(self.lineEdit_Aname.text())  # name
             record.append(self.lineEdit_Alevel.text())  # level
             record.append(self.lineEdit_num.text())  # num
-            record.append(self.lineEdit_date.text())
+            # record.append(self.lineEdit_date.text())
+            record.append(self.dateEdit.date().toString(Qt.ISODate))
             # print(record)
             DbOps.insert_record(record)
         else:

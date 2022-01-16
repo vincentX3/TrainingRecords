@@ -6,46 +6,51 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>705</height>
+    <width>329</width>
+    <height>1141</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>100</y>
-     <width>271</width>
-     <height>481</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QPushButton" name="pushButton_train">
-      <property name="text">
-       <string>训练</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton_history">
-      <property name="text">
-       <string>历史</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton_analysis">
-      <property name="text">
-       <string>统计</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPushButton" name="pushButton_train">
+     <property name="text">
+      <string>训练</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>C:/Users/VincentX3/.designer/res/muscle.png</normaloff>C:/Users/VincentX3/.designer/res/muscle.png</iconset>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_history">
+     <property name="text">
+      <string>历史</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>C:/Users/VincentX3/.designer/res/history.png</normaloff>C:/Users/VincentX3/.designer/res/history.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_analysis">
+     <property name="text">
+      <string>统计</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>C:/Users/VincentX3/.designer/res/analysis.png</normaloff>C:/Users/VincentX3/.designer/res/analysis.png</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

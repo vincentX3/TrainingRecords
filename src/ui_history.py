@@ -13,14 +13,17 @@ from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QHeaderView, QM
 
 from DbOps import DbOps
 from utils import get_week_begin, get_week_end
+from ui_settings import *
 
 
 class Ui_history(object):
     def setupUi(self, history):
         history.setObjectName("history")
-        history.resize(1302, 971)
+        history.resize(PAGE_WIDTH, HEIGHT)
+        self.verticalLayout = QtWidgets.QVBoxLayout(history)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.tabWidget = QtWidgets.QTabWidget(history)
-        self.tabWidget.setGeometry(QtCore.QRect(20, 40, 1201, 881))
+        # self.tabWidget.setGeometry(QtCore.QRect(PAGE_MARGIN, 0, PAGE_WIDTH-2*PAGE_MARGIN, HEIGHT))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -29,13 +32,13 @@ class Ui_history(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab_all = QtWidgets.QWidget()
         self.tab_all.setObjectName("tab_all")
-        self.gridLayoutWidget = QtWidgets.QWidget(self.tab_all)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 0, 1191, 841))
-        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        # self.gridLayoutWidget = QtWidgets.QWidget(self.tab_all)
+        # self.gridLayoutWidget.setGeometry(QtCore.QRect(PAGE_MARGIN, 0, PAGE_WIDTH-2*PAGE_MARGIN, PAGE_TABLE_HEIGHT))
+        # self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.tab_all)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
-        self.tableWidget_all = QtWidgets.QTableWidget(self.gridLayoutWidget)
+        self.tableWidget_all = QtWidgets.QTableWidget(self.tab_all)
         self.tableWidget_all.setObjectName("tableWidget_all")
         self.tableWidget_all.setColumnCount(0)
         self.tableWidget_all.setRowCount(0)
@@ -44,76 +47,78 @@ class Ui_history(object):
         self.gridLayout.addItem(spacerItem, 1, 4, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 1, 1, 1, 1)
-        self.pushButton_Aupdate = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.pushButton_Aupdate = QtWidgets.QPushButton(self.tab_all)
         self.pushButton_Aupdate.setObjectName("pushButton_Aupdate")
         self.gridLayout.addWidget(self.pushButton_Aupdate, 1, 2, 1, 1)
-        self.pushButton_Adelete = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.pushButton_Adelete = QtWidgets.QPushButton(self.tab_all)
         self.pushButton_Adelete.setObjectName("pushButton_Adelete")
         self.gridLayout.addWidget(self.pushButton_Adelete, 1, 3, 1, 1)
         self.tabWidget.addTab(self.tab_all, "")
         self.tab_week = QtWidgets.QWidget()
         self.tab_week.setObjectName("tab_week")
-        self.gridLayoutWidget_2 = QtWidgets.QWidget(self.tab_week)
-        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, 1191, 841))
-        self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
+        # self.gridLayoutWidget_2 = QtWidgets.QWidget(self.tab_week)
+        # self.gridLayoutWidget_2.setGeometry(QtCore.QRect(PAGE_MARGIN, 0, PAGE_WIDTH-2*PAGE_MARGIN, PAGE_TABLE_HEIGHT))
+        # self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.tab_week)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.tableWidget_week = QtWidgets.QTableWidget(self.gridLayoutWidget_2)
+        self.tableWidget_week = QtWidgets.QTableWidget(self.tab_week)
         self.tableWidget_week.setObjectName("tableWidget_week")
         self.tableWidget_week.setColumnCount(0)
         self.tableWidget_week.setRowCount(0)
         self.gridLayout_2.addWidget(self.tableWidget_week, 1, 0, 1, 4)
-        self.pushButton_Wupdate = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.pushButton_Wupdate = QtWidgets.QPushButton(self.tab_week)
         self.pushButton_Wupdate.setObjectName("pushButton_Wupdate")
         self.gridLayout_2.addWidget(self.pushButton_Wupdate, 2, 1, 1, 1)
-        self.pushButton_Wdelete = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.pushButton_Wdelete = QtWidgets.QPushButton(self.tab_week)
         self.pushButton_Wdelete.setObjectName("pushButton_Wdelete")
         self.gridLayout_2.addWidget(self.pushButton_Wdelete, 2, 2, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem2, 2, 0, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem3, 2, 3, 1, 1)
-        self.label = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.label = QtWidgets.QLabel(self.tab_week)
         self.label.setObjectName("label")
         self.gridLayout_2.addWidget(self.label, 0, 1, 1, 1)
-        self.dateEdit = QtWidgets.QDateEdit(self.gridLayoutWidget_2)
+        self.dateEdit = QtWidgets.QDateEdit(self.tab_week)
         self.dateEdit.setObjectName("dateEdit")
         self.gridLayout_2.addWidget(self.dateEdit, 0, 2, 1, 1)
         self.tabWidget.addTab(self.tab_week, "")
         self.tab_search = QtWidgets.QWidget()
         self.tab_search.setObjectName("tab_search")
-        self.gridLayoutWidget_3 = QtWidgets.QWidget(self.tab_search)
-        self.gridLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1191, 841))
-        self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
+        # self.gridLayoutWidget_3 = QtWidgets.QWidget(self.tab_search)
+        # self.gridLayoutWidget_3.setGeometry(QtCore.QRect(PAGE_MARGIN, 0, PAGE_WIDTH-2*PAGE_MARGIN, PAGE_TABLE_HEIGHT))
+        # self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.tab_search)
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        self.pushButton_search = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.pushButton_search = QtWidgets.QPushButton(self.tab_search)
         self.pushButton_search.setObjectName("pushButton_search")
         self.gridLayout_3.addWidget(self.pushButton_search, 0, 3, 1, 1)
-        self.tableWidget_search = QtWidgets.QTableWidget(self.gridLayoutWidget_3)
+        self.tableWidget_search = QtWidgets.QTableWidget(self.tab_search)
         self.tableWidget_search.setObjectName("tableWidget_search")
         self.tableWidget_search.setColumnCount(0)
         self.tableWidget_search.setRowCount(0)
         self.gridLayout_3.addWidget(self.tableWidget_search, 1, 0, 1, 4)
-        self.pushButton_Supdate = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.pushButton_Supdate = QtWidgets.QPushButton(self.tab_search)
         self.pushButton_Supdate.setObjectName("pushButton_Supdate")
         self.gridLayout_3.addWidget(self.pushButton_Supdate, 2, 1, 1, 1)
-        self.comboBox_action = QtWidgets.QComboBox(self.gridLayoutWidget_3)
+        self.comboBox_action = QtWidgets.QComboBox(self.tab_search)
         self.comboBox_action.setObjectName("comboBox_action")
         self.gridLayout_3.addWidget(self.comboBox_action, 0, 1, 1, 1)
-        self.comboBox_level = QtWidgets.QComboBox(self.gridLayoutWidget_3)
+        self.comboBox_level = QtWidgets.QComboBox(self.tab_search)
         self.comboBox_level.setObjectName("comboBox_level")
         self.gridLayout_3.addWidget(self.comboBox_level, 0, 2, 1, 1)
-        self.pushButton_Sdelete = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.pushButton_Sdelete = QtWidgets.QPushButton(self.tab_search)
         self.pushButton_Sdelete.setObjectName("pushButton_Sdelete")
         self.gridLayout_3.addWidget(self.pushButton_Sdelete, 2, 2, 1, 1)
-        self.comboBox_part = QtWidgets.QComboBox(self.gridLayoutWidget_3)
+        self.comboBox_part = QtWidgets.QComboBox(self.tab_search)
         self.comboBox_part.setCurrentText("")
         self.comboBox_part.setObjectName("comboBox_part")
         self.gridLayout_3.addWidget(self.comboBox_part, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_search, "")
+
+        self.verticalLayout.addWidget(self.tabWidget)
 
         self.retranslateUi(history)
         self.tabWidget.setCurrentIndex(1)
@@ -198,8 +203,7 @@ class Ui_history(object):
         elif idx == 1:
             self.flush_week_table()
         elif idx == 2:
-            pass
-        # TODO: add search flush
+            self.flush_search_table()
 
     def refresh_name_combobox(self, part):
         self.comboBox_action.clear()
@@ -239,17 +243,17 @@ class Ui_history(object):
 
     def flush_search_table(self):
         if len(str(self.comboBox_action.currentText()))>0:
-            if len(self.comboBox_level.currentText())>0:
+            if len(str(self.comboBox_level.currentText()))>0:
                 data = DbOps.fetch_records_by_action(str(self.comboBox_action.currentText()), str(self.comboBox_level.currentText()))
             else:
                 data = DbOps.fetch_records_by_action(str(self.comboBox_action.currentText()))
 
-        self.tableWidget_search.setRowCount(len(data))
+            self.tableWidget_search.setRowCount(len(data))
 
-        # 设置表格的数据
-        for idx, item in enumerate(data):
-            for i, word in enumerate(item):
-                self.tableWidget_search.setItem(idx, i, QTableWidgetItem(str(word)))
+            # 设置表格的数据
+            for idx, item in enumerate(data):
+                for i, word in enumerate(item):
+                    self.tableWidget_search.setItem(idx, i, QTableWidgetItem(str(word)))
 
     def update_record_table(self, table_name):
         if table_name == 'all':
