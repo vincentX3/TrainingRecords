@@ -302,8 +302,8 @@ class Ui_history(object):
 
     def update_dialog(self, rid, name, level, num, rdate):
         dialog = QDialog(self)
-        # self.dialog.setWindowIcon(QIcon('icon.png'))
         dialog.setWindowTitle('Update')
+        dialog.setWindowFlags(dialog.windowFlags() & ~Qt.WindowContextHelpButtonHint)
 
         # 创建一个group盒子
         group = QGroupBox(dialog)
@@ -370,6 +370,7 @@ class Ui_history(object):
     def delete_dialog(self):
         dialog = QDialog(self)
         dialog.setWindowTitle(u'Delete')
+        dialog.setWindowFlags(dialog.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         group = QGroupBox('', dialog)
         lb1 = QLabel(u'确认删除记录吗?')
 
