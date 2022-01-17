@@ -108,7 +108,7 @@ class TRDb:
             # last week
             sql = "select RAname, RAlevel, SUM(Rnum) as num from records where " \
                   "Rdate >= date('now','start of day', '-13 day','weekday 1') and " \
-                  "Rdate < `date('now','start of day', '-6 day','weekday 1')`" \
+                  "Rdate < date('now','start of day', '-6 day','weekday 1')" \
                   "GROUP BY RAname, RAlevel;"
         else:
             pass
