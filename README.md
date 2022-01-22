@@ -1,4 +1,4 @@
-# <img src="./res/main_icon.png" alt="icon" style="zoom:25%;" />TrainingRecords
+# Training<img src="./res/main_icon.png" alt="icon" style="zoom:25%;" />Records	
 
 出于个人健身的需要，开发一个轻量的app记录每日训练内容。
 目标：记录个人每日运动状况，兼具数据统计分析功能.
@@ -54,17 +54,16 @@ v0:
 - [x] weekly report
 
 v1:
-- [ ] GUI
+- [x] GUI
   - [x] home page
     - [x] new record
     - [x] todo list
   - [x] history page
     - [x] deletion / update records
-  - [ ] beautify UI
+  - [x] beautify UI
     - [x] change layout
     - [x] add icon
-    - [ ] qss
-    - [ ] fix custom item widget could not display lineEdit widget
+    - [x] qss
 
 v2:
 - [ ] Excel Import & Export

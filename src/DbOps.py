@@ -147,7 +147,7 @@ class DbOps:
         if len(level) == 0:
             sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\'".format(name=name)
         else:
-            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\' AND RAlevel=\'{level}\'".\
+            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\' AND RAlevel=\'{level}\'". \
                 format(name=name, level=level)
         return cls.execute_sql(sql)
 
@@ -171,9 +171,12 @@ class DbOps:
 
     @classmethod
     def update_record(cls, rid, name, level, num, rdate):
-        # TODO: check action exists
-        sql = "UPDATE records SET RAname=\'{name}\', RAlevel=\'{name}\', Rnum=\'{num}\', Rdate=\'{rdate}\'" \
-              "WHERE Rid={rid}".format(rid=rid, name=name, num=num, rdate=rdate)
+        action = [name, level]
+        if not cls.is_action_exist(action):
+            # create new action
+            cls.insert_action(action)
+        sql = "UPDATE records SET RAname=\'{name}\', RAlevel=\'{level}\', Rnum=\'{num}\', Rdate=\'{rdate}\'" \
+              "WHERE Rid={rid}".format(rid=rid, name=name, level=level, num=num, rdate=rdate)
         return cls.execute_sql(sql)
 
     @classmethod
