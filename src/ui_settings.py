@@ -13,7 +13,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHeaderView, QAbstractItemView, QTableWidgetItem, QDialog, QGroupBox, QLabel, QPushButton, \
     QVBoxLayout, QHBoxLayout, QLineEdit, QFileDialog, QMessageBox
 
-from src.DbOps import DbOps
+from DbOps import DbOps
 from ui_macro import *
 
 

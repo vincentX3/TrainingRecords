@@ -32,3 +32,4 @@ db/TRecords.db
 .idea/vcs.xml
 db/TRecords.db
 /data/
+/log/

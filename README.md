@@ -38,7 +38,9 @@ Required packages please see requirements.txt.
 
   `python ./src/ui_main.py`
 
-  to be continued...
+  Screenshots:
+  
+  
   
   
 
@@ -71,9 +73,6 @@ v2:
 - [ ] analysis page
   - [ ] data visualization
   - [ ] weekly report
-  
-- [ ] settings page
-  - [ ] manage actions
   
 - [ ] release software
 
