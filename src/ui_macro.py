@@ -6,4 +6,4 @@ PAGE_WIDTH = 1000
 PAGE_TAB_HEIGHT = 800
 PAGE_TABLE_HEIGHT = 785
 PAGE_MARGIN = 0
-DB_PATH = "../db/TRecords_new2.db"
+DB_PATH = "../db/TRecords_ui.db"

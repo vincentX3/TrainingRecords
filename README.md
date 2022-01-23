@@ -40,7 +40,23 @@ Required packages please see requirements.txt.
 
   Screenshots:
   
+  - 记录完成的训练 或 添加训练todo-list
   
+    <img src="./docs/v1_03.png" style="zoom:50%;" />
+  
+  - 查看训练历史记录
+  
+    <img src="./docs/v1_02.png" style="zoom:50%;" />
+  
+  - 查看已有训练动作库
+  
+    <img src="./docs/v1_04.png" style="zoom:50%;" />
+  
+  - 导入命令行界面的数据库
+  
+    <img src="./docs/v1_01.png" style="zoom:50%;" />
+  
+    
   
   
 
