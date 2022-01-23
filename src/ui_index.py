@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ui_pages import *
-from ui_settings import *
+from ui_macro import *
 
 
 class Ui_MainWindow(object):
@@ -38,12 +38,14 @@ class Ui_MainWindow(object):
         self.history = History()
         self.analysis = Analysis()
         self.sidebar = Sidebar()
+        self.settings = Settings()
         self.splitter.addWidget(self.sidebar)
 
         # switch pages
         self.sidebar.pushButton_train.clicked.connect(lambda: self.switch_page("train"))
         self.sidebar.pushButton_history.clicked.connect(lambda: self.switch_page("history"))
         self.sidebar.pushButton_analysis.clicked.connect(lambda: self.switch_page("analysis"))
+        self.sidebar.pushButton_settings.clicked.connect(lambda: self.switch_page("settings"))
         self.splitter.addWidget(self.home)
 
         self.retranslateUi(MainWindow)
@@ -59,6 +61,9 @@ class Ui_MainWindow(object):
         elif page_name == 'analysis':
             self.splitter.widget(1).setParent(None)
             self.splitter.insertWidget(1, self.analysis)
+        elif page_name == 'settings':
+            self.splitter.widget(1).setParent(None)
+            self.splitter.insertWidget(1, self.settings)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from ui_settings import *
+from ui_macro import *
 
 class Ui_analysis(object):
     def setupUi(self, analysis):

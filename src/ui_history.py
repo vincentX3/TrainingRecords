@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QHeaderView, QM
 
 from DbOps import DbOps
 from utils import get_week_begin, get_week_end
-from ui_settings import *
+from ui_macro import *
 
 
 class Ui_history(object):
@@ -30,6 +30,7 @@ class Ui_history(object):
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setObjectName("tabWidget")
+
         self.tab_all = QtWidgets.QWidget()
         self.tab_all.setObjectName("tab_all")
         self.gridLayout = QtWidgets.QGridLayout(self.tab_all)

@@ -11,7 +11,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
-from ui_settings import *
+from ui_macro import *
 
 
 class Ui_sidebar(object):
@@ -40,16 +40,24 @@ class Ui_sidebar(object):
         self.pushButton_train.setIcon(icon)
         self.pushButton_train.setFlat(False)
         self.pushButton_train.setObjectName("pushButton_train")
+
         self.pushButton_history = QtWidgets.QPushButton(sidebar)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("../res/history.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_history.setIcon(icon1)
         self.pushButton_history.setObjectName("pushButton_history")
+
         self.pushButton_analysis = QtWidgets.QPushButton(sidebar)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("../res/analysis.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_analysis.setIcon(icon2)
         self.pushButton_analysis.setObjectName("pushButton_analysis")
+
+        self.pushButton_settings = QtWidgets.QPushButton(sidebar)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("../res/setting.png"),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_settings.setIcon(icon4)
+        self.pushButton_settings.setObjectName("pushButton_settings")
 
         self.verticalLayout.addWidget(self.label_title)
         # self.verticalLayout.addStretch(1)
@@ -57,6 +65,7 @@ class Ui_sidebar(object):
         self.verticalLayout.addWidget(self.pushButton_train)
         self.verticalLayout.addWidget(self.pushButton_history)
         self.verticalLayout.addWidget(self.pushButton_analysis)
+        self.verticalLayout.addWidget(self.pushButton_settings)
         self.verticalLayout.addStretch(1)
 
         self.retranslateUi(sidebar)
@@ -68,3 +77,4 @@ class Ui_sidebar(object):
         self.pushButton_train.setText(_translate("sidebar", "训练"))
         self.pushButton_history.setText(_translate("sidebar", "历史"))
         self.pushButton_analysis.setText(_translate("sidebar", "统计"))
+        self.pushButton_settings.setText(_translate("sidebar", "设置"))

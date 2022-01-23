@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QCompleter, QMessageBox
 from DbOps import DbOps
 from utils import is_date_valid
 from ui_custom import TodoQListWidgetItem
-from ui_settings import *
+from ui_macro import *
 
 class Ui_home(object):
     def setupUi(self, home):

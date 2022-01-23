@@ -1,12 +1,15 @@
 import sqlite3
+import re
+import subprocess
 import traceback
 from sqlite3 import Error
 import datetime
 from utils import Logger
+from ui_macro import DB_PATH
 
 
 class DbOps:
-    db_path = "../db/TRecords_test.db"
+    db_path = DB_PATH
 
     @classmethod
     def execute_sql(cls, sql, values=None):
@@ -25,7 +28,7 @@ class DbOps:
             con.close()
             return data
         except:
-            log = Logger('./log/logfile.log', level='error')
+            log = Logger('../log/logfile.log', level='error')
             log.logger.error("错误:%s", traceback.format_exc())
 
     @classmethod
@@ -56,6 +59,7 @@ class DbOps:
                 Rdate date,
                 Rnote text,
                 FOREIGN KEY (RAname, RAlevel) REFERENCES actions (Aname, Alevel)
+                ON UPDATE CASCADE ON DELETE CASCADE
             )
             """
         cls.execute_sql(sql)
@@ -70,6 +74,7 @@ class DbOps:
                 PRIMARY KEY (Aname, Alevel)
             );    
             """
+        cls.execute_sql(sql)
 
     @classmethod
     def is_action_exist(cls, action):
@@ -133,27 +138,35 @@ class DbOps:
 
     @classmethod
     def fetch_records(cls):
-        sql = "select Rid, RAname, RAlevel, Rnum, Rdate from records;"
+        sql = "select Rid, RAname, RAlevel, Rnum, Rdate from records ORDER BY Rdate;"
         return cls.execute_sql(sql)
 
     @classmethod
     def fetch_week_records(cls, begin, end):
-        sql = "select Rid, RAname, RAlevel, Rnum, Rdate from records where rdate>=\'{begin}\' and rdate<=\'{end}\'". \
+        sql = "select Rid, RAname, RAlevel, Rnum, Rdate from records " \
+              "where rdate>=\'{begin}\' and rdate<=\'{end}\' ORDER BY Rdate". \
             format(begin=begin, end=end)
         return cls.execute_sql(sql)
 
     @classmethod
     def fetch_records_by_action(cls, name, level=''):
         if len(level) == 0:
-            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\'".format(name=name)
+            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\' ORDER BY Rdate". \
+                format(name=name)
         else:
-            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records WHERE RAname=\'{name}\' AND RAlevel=\'{level}\'". \
+            sql = "SELECT Rid, RAname, RAlevel, Rnum, Rdate FROM records " \
+                  "WHERE RAname=\'{name}\' AND RAlevel=\'{level}\' ORDER BY Rdate". \
                 format(name=name, level=level)
         return cls.execute_sql(sql)
 
     @classmethod
     def fetch_parts(cls):
         sql = "SELECT DISTINCT Apart FROM actions;"
+        return cls.execute_sql(sql)
+
+    @classmethod
+    def fetch_actions(cls):
+        sql = "SELECT * FROM actions ORDER BY Aname;"
         return cls.execute_sql(sql)
 
     @classmethod
@@ -180,17 +193,48 @@ class DbOps:
         return cls.execute_sql(sql)
 
     @classmethod
+    def update_action(cls, ori_name, ori_level, name, level, part):
+        sql = "UPDATE actions SET Aname=\'{name}\', Alevel=\'{level}\', Apart=\'{part}\' " \
+              "WHERE Aname=\'{ori_name}\' AND Alevel=\'{ori_level}\'".format(name=name, level=level, ori_name=ori_name,
+                                                                             ori_level=ori_level, part=part)
+        return cls.execute_sql(sql)
+
+    @classmethod
     def delete_todo(cls, todo_item):
         sql = "DELETE FROM todos WHERE Tname=\'{name}\' AND Tlevel=\'{level}\'" \
             .format(name=todo_item[0], level=todo_item[1])
         cls.execute_sql(sql)
+
+    # TODO: check why the cascade setting isn't work
 
     @classmethod
     def delete_record_by_id(cls, rid):
         sql = "DELETE FROM records WHERE Rid=\'{rid}\'".format(rid=rid)
         cls.execute_sql(sql)
 
-    # TODO: 增加导入旧db的功能
+    @classmethod
+    def delete_action(cls, aname, alevel):
+        sql = "DELETE FROM actions WHERE Aname=\'{name}\' AND Alevel=\'{level}\'" \
+            .format(name=aname, level=alevel)
+        cls.execute_sql(sql)
+
+    @classmethod
+    def import_old_db(cls, db_path):
+        # dump previous db
+        cmd = 'sqlite3 {path} .dump'.format(path=db_path)
+        result = subprocess.run(cmd.split(), stdout=subprocess.PIPE).stdout.decode('utf-8')
+        result = result.split("\n")
+        # execute every INSERT sql
+        for sql in result:
+            sql = sql.strip()
+            if sql.startswith("INSERT"):
+                if sql.split()[2] == 'records':
+                    # for records INSERTION, omit rid
+                    temp = "INSERT INTO records(RAname, RAlevel, Rnum, Rdate, Rnote) VALUES"
+                    values = re.findall(r'[(](.*?)[)]', sql)[0]  # Extract content in parentheses
+                    values = values.split(",", 1)[1]  # omit rid
+                    sql = temp + '(' + values + ');'
+                cls.execute_sql(sql)
 
 
 if __name__ == '__main__':

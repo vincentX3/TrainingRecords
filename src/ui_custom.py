@@ -4,7 +4,7 @@ from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QListWidgetItem, QWidget, QLabel, QLineEdit, QPushButton, QHBoxLayout, QApplication, \
     QListWidget, QSpacerItem, QSizePolicy
-from ui_settings import *
+from ui_macro import *
 
 
 class TodoQListWidgetItem(QListWidgetItem):
