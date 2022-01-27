@@ -66,7 +66,13 @@ class Ui_home(object):
 
         self.retranslateUi(home)
         QtCore.QMetaObject.connectSlotsByName(home)
+        self.init_all()
 
+    def retranslateUi(self, home):
+        _translate = QtCore.QCoreApplication.translate
+        home.setWindowTitle(_translate("home", "Form"))
+
+    def init_all(self):
         # ----- customization ----
         # self.lineEdit_date.setText(str(datetime.date.today()))
         # auto-complete
@@ -99,10 +105,6 @@ class Ui_home(object):
         self.pushButton_complete.clicked.connect(self.add_complete_record)
         self.pushButton_todo.clicked.connect(self.add_todo_record)
 
-    def retranslateUi(self, home):
-        _translate = QtCore.QCoreApplication.translate
-        home.setWindowTitle(_translate("home", "Form"))
-
     def is_line_all_valid(self):
         flag = True
         if len(self.lineEdit_Aname.text()) == 0 or len(self.lineEdit_Alevel.text()) == 0 \
@@ -125,6 +127,10 @@ class Ui_home(object):
             record.append(self.dateEdit.date().toString(Qt.ISODate))
             # print(record)
             DbOps.insert_record(record)
+            # clear text
+            self.lineEdit_Aname.clear()
+            self.lineEdit_Alevel.clear()
+            self.lineEdit_num.clear()
         else:
             print("> incomplete record.")
 
@@ -144,6 +150,10 @@ class Ui_home(object):
                 item.pushButton_delete.clicked.connect(self.delete_todo_record)
                 self.listWidget.addItem(item)
                 self.listWidget.setItemWidget(item, item.widget)  # Sets the widget to be displayed in the given item
+                # clear text
+                self.lineEdit_Aname.clear()
+                self.lineEdit_Alevel.clear()
+                self.lineEdit_num.clear()
             else:
                 QMessageBox.about(self, "TODO Exists", "已有该项的计划了，别贪心哦~")
         else:

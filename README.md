@@ -2,6 +2,7 @@
 
 出于个人健身的需要，开发一个轻量的app记录每日训练内容。
 目标：记录个人每日运动状况，兼具数据统计分析功能.
+基于**PyQT+SQLite**开发。
 
 ## Table of Contents
 - [Background](#Background)
