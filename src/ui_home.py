@@ -89,8 +89,7 @@ class Ui_home(object):
 
         # dateEdit
         self.dateEdit.setCalendarPopup(True)
-        self.dateEdit.setDisplayFormat("yyyy-MM-dd")
-        self.dateEdit.setDate(QDate.currentDate())
+        self.refresh_date()
 
         # Load QlistWidgetItem from DB
         for todo_item in DbOps.fetch_todos():
@@ -104,6 +103,10 @@ class Ui_home(object):
         # signal & connection
         self.pushButton_complete.clicked.connect(self.add_complete_record)
         self.pushButton_todo.clicked.connect(self.add_todo_record)
+
+    def refresh_date(self):
+        self.dateEdit.setDisplayFormat("yyyy-MM-dd")
+        self.dateEdit.setDate(QDate.currentDate())
 
     def is_line_all_valid(self):
         flag = True

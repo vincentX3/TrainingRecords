@@ -138,8 +138,7 @@ class Ui_history(object):
 
         # --- init UI ---
         self.dateEdit.setCalendarPopup(True)
-        self.dateEdit.setDisplayFormat("yyyy-MM-dd")
-        self.dateEdit.setDate(QDate.currentDate())
+        self.refresh_date()
         self.pushButton_search.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../res/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -188,6 +187,10 @@ class Ui_history(object):
         # 初始化表格数据
         self.flush_table()
         self.flush_week_table()
+
+    def refresh_date(self):
+        self.dateEdit.setDisplayFormat("yyyy-MM-dd")
+        self.dateEdit.setDate(QDate.currentDate())
 
     def refresh_by_tab_click(self, idx):
         if idx == 0:

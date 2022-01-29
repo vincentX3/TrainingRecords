@@ -54,9 +54,11 @@ class Ui_MainWindow(object):
     def switch_page(self, page_name):
         if page_name == 'train':
             self.splitter.widget(1).setParent(None)
+            self.home.refresh_date()
             self.splitter.insertWidget(1, self.home)
         elif page_name == 'history':
             self.splitter.widget(1).setParent(None)
+            self.history.refresh_date()
             self.splitter.insertWidget(1, self.history)
         elif page_name == 'analysis':
             self.splitter.widget(1).setParent(None)
